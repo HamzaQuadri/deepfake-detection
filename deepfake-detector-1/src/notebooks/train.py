@@ -16,8 +16,8 @@ fine_tune_epochs = 15
 num_classes = 1  # Binary classification
 
 # Paths (update these)
-train_data_dir = r"C:\Users\syedn\Documents\DeepfakeP\deepfake-detector-1\src\data\train"
-val_data_dir = r"C:\Users\syedn\Documents\DeepfakeP\deepfake-detector-1\src\data\val"
+train_data_dir = r"C:\Users\hamza\deepfake-detection\deepfake-detector-1\src\data\train"
+val_data_dir = r"C:\Users\hamza\deepfake-detection\deepfake-detector-1\src\data\val"
 
 # === DATA PREPARATION ===
 train_datagen = ImageDataGenerator(
@@ -47,6 +47,9 @@ class_weights = {
     0: total_samples / (2 * class_counts[0]),  # fake
     1: total_samples / (2 * class_counts[1])   # real
 }
+
+# 🛠️ FIXED: Added missing val_datagen
+val_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 # Validation generator with same class order
 val_generator = val_datagen.flow_from_directory(
