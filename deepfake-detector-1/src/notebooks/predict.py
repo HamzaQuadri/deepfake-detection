@@ -8,7 +8,7 @@ import sys
 import os
 
 # Configuration
-MODEL_PATH = r"C:\Users\syedn\Documents\DeepfakeP\best_model.keras"
+MODEL_PATH = r"C:\Users\hamza\deepfake-detection\deepfake-detector-1\src\notebooks\best_model.keras"
 IMAGE_SIZE = 224
 THRESHOLD = 0.5  # Reset to default threshold
 TTA_ITERATIONS = 5  # Number of test-time augmentations
@@ -67,12 +67,12 @@ def predict(image_path):
         else:
             confidence = debug_pred
         
-        # Apply threshold with balanced interpretation
+        # FLIPPED INTERPRETATION: High score = Real, Low score = Fake
         if confidence > THRESHOLD:
-            prediction = "Fake"
+            prediction = "Real"
             confidence_pct = confidence * 100
         else:
-            prediction = "Real"
+            prediction = "Fake"
             confidence_pct = (1 - confidence) * 100
         
         # Print detailed results
@@ -80,7 +80,7 @@ def predict(image_path):
         print(f"Prediction: {prediction}")
         print(f"Confidence: {confidence_pct:.2f}%")
         print(f"Threshold: {THRESHOLD}")
-        print(f"Raw score: {confidence:.4f} (0=Real, 1=Fake)")
+        print(f"Raw score: {confidence:.4f} (0=Fake, 1=Real)")
         
     except Exception as e:
         print(f"Error during prediction: {str(e)}")
